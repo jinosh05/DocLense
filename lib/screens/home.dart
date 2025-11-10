@@ -19,8 +19,8 @@ import "package:double_back_to_close_app/double_back_to_close_app.dart";
 import "package:easy_folder_picker/FolderPicker.dart";
 import "package:flutter/material.dart";
 import "package:flutter_spinkit/flutter_spinkit.dart";
-import "package:gallery_saver/gallery_saver.dart";
 import "package:hive_flutter/hive_flutter.dart";
+import "package:image_gallery_saver_plus/image_gallery_saver_plus.dart";
 import "package:image_picker/image_picker.dart";
 import "package:open_file/open_file.dart";
 import "package:path_provider/path_provider.dart";
@@ -69,8 +69,7 @@ class HomeScreenState extends State<HomeScreen> {
     final File tmpFile = File(imageFile.path);
 
     if (imageSource == ImageSource.camera) {
-      await GallerySaver.saveImage(tmpFile.path)
-          .then((bool? value) => debugPrint("Image Saved"));
+      await ImageGallerySaverPlus.saveImage(await tmpFile.readAsBytes());
     }
 
     await Navigator.of(context).pushNamed(

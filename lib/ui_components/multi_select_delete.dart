@@ -1,4 +1,5 @@
 import "dart:io";
+import "dart:typed_data";
 
 import "package:doclense/configs/app_dimensions.dart";
 import "package:doclense/configs/app_typography.dart";
@@ -10,7 +11,7 @@ import "package:doclense/providers/image_list.dart";
 import "package:doclense/ui_components/grid_item.dart";
 import "package:flutter/material.dart";
 import "package:flutter_spinkit/flutter_spinkit.dart";
-import "package:gallery_saver/gallery_saver.dart";
+import "package:image_gallery_saver_plus/image_gallery_saver_plus.dart";
 import "package:image_picker/image_picker.dart";
 
 class MultiDelete extends StatefulWidget {
@@ -177,9 +178,9 @@ class MultiDeleteState extends State<MultiDelete> {
     });
 
     if (imageFile != null) {
-      await GallerySaver.saveImage(imageFile!.path)
-          .then((bool? value) => debugPrint("Image Saved"))
-          .whenComplete(() async {
+      final Uint8List data = await imageFile!.readAsBytes();
+      final isSuccess = await ImageGallerySaverPlus.saveImage(data);
+      if (isSuccess != null) {
         await Navigator.of(context).pushNamed(
           RouteConstants.imageView,
           arguments: <String, Object?>{
@@ -187,7 +188,7 @@ class MultiDeleteState extends State<MultiDelete> {
             "imageList": widget.imageList,
           },
         );
-      });
+      }
     }
   }
 
