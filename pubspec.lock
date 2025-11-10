@@ -1003,9 +1003,11 @@ packages:
   photofilters:
     dependency: "direct main"
     description:
-      path: "/home/jinosh/Program/open_source/photofilters"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "0fa6d75b91853e07e5704a322fb7171037a872b4"
+      url: "https://github.com/jinosh05/photofilters"
+    source: git
     version: "3.0.2"
   platform:
     dependency: transitive
